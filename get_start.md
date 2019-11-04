@@ -193,6 +193,29 @@ ridgeback_viz包在/ridgeback/ridgeback_desktop路径下，下载链接：[click
 ```
 roslaunch ridgeback_viz view_robot.launch
 ```
+##BUG3
+```
+ssen@sen-inspiron-15-7000-gaming:~$ roslaunch ridgeback_viz view_robot.launch
+... logging to /home/ssen/.ros/log/54b2acb6-ff00-11e9-bb51-000babe07c17/roslaunch-sen-inspiron-15-7000-gaming-25623.log
+Checking log directory for disk usage. This may take awhile.
+Press Ctrl-C to interrupt
+Done checking log file disk usage. Usage is <1GB.
+
+Unable to contact my own server at [http://1921,68.131.39:39721/].
+This usually means that the network is not configured properly.
+
+A common cause is that the machine cannot ping itself.  Please check
+for errors by running:
+
+	ping 1921,68.131.39
+
+For more tips, please see
+
+	http://www.ros.org/wiki/ROS/NetworkSetup
+
+The traceback for the exception was written to the log file
+
+```
 新开终端
 ```
 roslaunch ridgeback_viz view_model.launch
