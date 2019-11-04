@@ -144,6 +144,42 @@ ssen@sen-inspiron-15-7000-gaming:~$
 ```
 解决方式：
 是因为忘了选择“在自己电脑创建有线连接,自己配置的IP ”
+```
+ssen@sen-inspiron-15-7000-gaming:~$ rostopic list
+/bluetooth_teleop/joy
+/cmd_lights
+/cmd_vel
+/diagnostics
+/diagnostics_agg
+/diagnostics_toplevel_state
+/feedback
+/front/scan
+/imu/data
+/imu/data_raw
+/imu/mag
+/imu_filter/parameter_descriptions
+/imu_filter/parameter_updates
+/joint_states
+/laser_status
+/mcu/cmd_fans
+/mcu/cmd_lights
+/mcu/status
+/odometry/filtered
+/ridgeback_velocity_controller/cmd_vel
+/ridgeback_velocity_controller/odom
+/rosout
+/rosout_agg
+/set_pose
+/status
+/tf
+/tf_static
+/twist_marker_server/feedback
+/twist_marker_server/update
+/twist_marker_server/update_full
+/urg_front/parameter_descriptions
+/urg_front/parameter_updates
+/wifi_connected
+```
 
 (6)控制移动平台移动:
 ```
