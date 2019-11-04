@@ -31,6 +31,9 @@ ssen@sen-inspiron-15-7000-gaming:~$ echo $ROS_PACKAGE_PATH
 /home/ssen/ridgeback_ws/src:/home/ssen/sensor_ws/src:/home/ssen/ur5_ws/src:/opt/ros/kinetic/share
 ssen@sen-inspiron-15-7000-gaming:~$ 
 ```
+注：
+立即生效（此时应该在家目录下）source .bashrc
+注：如果不执行 source 命令，则需重启系统才能生效。
 可以通过：
 ```
 have a look:
@@ -41,12 +44,54 @@ $ sudo gedit .bashrc
 
 # 一.[跟ridgeback通讯上](https://github.com/GJXS1980/Lab409_Ridgeback):
 
-(1)在自己电脑创建有线连接
+(1)在自己电脑创建有线连接,自己配置的IP  
+```
+ssen@sen-inspiron-15-7000-gaming:~$ ifconfig
+enp2s0    Link encap:以太网  硬件地址 50:9a:4c:c1:65:d0  
+          inet 地址:192.168.131.39  广播:192.168.131.255  掩码:255.255.255.0
+          inet6 地址: fe80::320:af0b:aae1:b6f4/64 Scope:Link
+          UP BROADCAST RUNNING MULTICAST  MTU:1500  跃点数:1
+          接收数据包:69390 错误:0 丢弃:0 过载:0 帧数:0
+          发送数据包:36224 错误:0 丢弃:0 过载:0 载波:0
+          碰撞:0 发送队列长度:1000 
+          接收字节:32861988 (32.8 MB)  发送字节:4620359 (4.6 MB)
+```
+
 (2)通过ssh连接上移动平台
+[先前的例子](https://zhuanlan.zhihu.com/p/45121106)
+```
+3.sudo vim ~/.bashrc 或者 vim .bashrc
+（在odroid无人机这端）
+加入 export ROS_IP=Odoird_IP; 
+将Odoird_IP;替换成 $ ifconfig 后查到的ip地址
+4.在PC端，
+Odoird_IP;
+加入  
+export ROS_IP=PC_IP;
+export ROS_MASTER = http://odroid_ip:11311;
+现在先在主机roscore，从机（PC）就可以通过rostopic list 订阅到主机（odroid）的话题了
+5.在PC上登陆odroid
+$ ssh odroid@192.168.63.33
+名字由$ hostname知
+ip是odroid的ip
+后输入密码即可
+```
+但是在这个ridgeback例子中，
+底盘端的系统应该是配置好了，因为它需要提供它的ip给我们就可以了。
+我们PC端：打开
+```
+gedit .bashrc
+```
+并写入
+```
+export ROS_IP=1921,68.131.39;
+export ROS_MASTER_URI=http://192.168.131.1:11311；
+```
+# 科普一下.bashrc和/etc/hosts文件
+
 (3)更改.bashrc
 ```
 export ROS_MASTER_URI=http://192.168.131.1:11311 #ridegback的IP地址
-
 export ROS_IP=192.168.31.50 #你电脑的IP地址
 ```
 使环境生效,在终端输入:
@@ -56,7 +101,7 @@ source .bashrc
 (4)打开终端,修改/etc/hosts文件
 ```
 sudo gedit /etc/hosts
-
+```
 加入下面代码:
 ```
 192.168.131.1 CPR-R100-0038 #创建有线连接移动平台的IP 名字
