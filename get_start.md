@@ -88,7 +88,17 @@ export ROS_IP=1921,68.131.39;
 export ROS_MASTER_URI=http://192.168.131.1:11311；
 ```
 # 科普一下.bashrc和/etc/hosts文件
+```
+一般会有多个 .bashrc 文件，使用 find 命令可以查看：
+$ sudo find / -name .bashrc
 
+
+/etc/hosts，主机名和ip配置文件
+这个文件告诉主机那些域名对应那些ip,哪些主机名对应哪些ip
+比如文件中有这样的定义
+192.168.1.100    linumu100    test100
+假设192.168.1.100是一台网站服务器，在网页中输入http://linumu100或http://test1000就会打开192.168.1.100的网页。
+```
 (3)更改.bashrc
 ```
 export ROS_MASTER_URI=http://192.168.131.1:11311 #ridegback的IP地址
@@ -113,6 +123,28 @@ sudo gedit /etc/hosts
 rostopic list
 ```
 可以看到移动平台的话题 
+##BUG2
+```
+ssen@sen-inspiron-15-7000-gaming:~$ rostopic list
+Traceback (most recent call last):
+  File "/opt/ros/kinetic/bin/rostopic", line 35, in <module>
+    rostopic.rostopicmain()
+  File "/opt/ros/kinetic/lib/python2.7/dist-packages/rostopic/__init__.py", line 2099, in rostopicmain
+    _rostopic_cmd_list(argv)
+  File "/opt/ros/kinetic/lib/python2.7/dist-packages/rostopic/__init__.py", line 2039, in _rostopic_cmd_list
+    exitval = _rostopic_list(topic, verbose=options.verbose, subscribers_only=options.subscribers, publishers_only=options.publishers, group_by_host=options.hostname) or 0
+  File "/opt/ros/kinetic/lib/python2.7/dist-packages/rostopic/__init__.py", line 1203, in _rostopic_list
+    master = rosgraph.Master('/rostopic')
+  File "/opt/ros/kinetic/lib/python2.7/dist-packages/rosgraph/masterapi.py", line 100, in __init__
+    self._reinit(master_uri)
+  File "/opt/ros/kinetic/lib/python2.7/dist-packages/rosgraph/masterapi.py", line 118, in _reinit
+    raise ValueError("invalid master URI: %s"%(master_uri))
+ValueError: invalid master URI: http://192.168.131.1:11311；
+ssen@sen-inspiron-15-7000-gaming:~$ 
+```
+解决方式：
+是因为忘了选择“在自己电脑创建有线连接,自己配置的IP ”
+
 (6)控制移动平台移动:
 ```
 rostopic pub -r 0.5 /cmd_vel geometry_msgs/Twist '{linear: {x: 0.00, y: 0, z: 0}, angular: {x: 0, y: 0, z: 0.0}}' 
